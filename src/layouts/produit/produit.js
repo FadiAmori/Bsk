@@ -83,7 +83,7 @@ const ProduitComponent = () => {
   const fetchProduits = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/produits");
+      const res = await axios.get("https://bskbackend-1.onrender.com/api/produits");
       const data = Array.isArray(res.data) ? res.data : [res.data];
       setProduits(data);
     } catch (err) {
@@ -95,7 +95,7 @@ const ProduitComponent = () => {
 
   const fetchFournisseurs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/fournisseurs");
+      const res = await axios.get("https://bskbackend-1.onrender.com/api/fournisseurs");
       setFournisseurs(Array.isArray(res.data) ? res.data : [res.data]);
     } catch (err) {
       setError(err.response?.data?.error || "Échec de la récupération des fournisseurs.");
@@ -157,7 +157,7 @@ const ProduitComponent = () => {
 
   const handleView = async (produit) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/produits/${produit._id}`);
+      const res = await axios.get(`https://bskbackend-1.onrender.com/api/produits/${produit._id}`);
       setCurrentProduit({
         ...res.data,
         recherche: res.data.recherche?.join(", ") || "",
@@ -180,7 +180,7 @@ const ProduitComponent = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer ce produit ?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/produits/${id}`);
+        await axios.delete(`https://bskbackend-1.onrender.com/api/produits/${id}`);
         setProduits((prev) => prev.filter((produit) => produit._id !== id));
       } catch (err) {
         setError(err.response?.data?.error || "Échec de la suppression du produit.");
@@ -249,9 +249,12 @@ const ProduitComponent = () => {
     try {
       let response;
       if (isEditing) {
-        response = await axios.put(`http://localhost:5000/api/produits/${_id}`, payload);
+        response = await axios.put(
+          `https://bskbackend-1.onrender.com/api/produits/${_id}`,
+          payload
+        );
       } else {
-        response = await axios.post("http://localhost:5000/api/produits", payload);
+        response = await axios.post("https://bskbackend-1.onrender.com/api/produits", payload);
         setProduits((prev) => [...prev, response.data]);
       }
       fetchProduits();

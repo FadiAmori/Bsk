@@ -73,7 +73,7 @@ const FactureAchatComponent = () => {
   const fetchFactures = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:5000/api/factureAchats");
+      const res = await axios.get("https://bskbackend-1.onrender.com/api/factureAchats");
       const data = Array.isArray(res.data) ? res.data : [res.data];
       setFactures(data);
     } catch (err) {
@@ -85,7 +85,7 @@ const FactureAchatComponent = () => {
 
   const fetchProduits = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/produits");
+      const res = await axios.get("https://bskbackend-1.onrender.com/api/produits");
       setProduits(Array.isArray(res.data) ? res.data : [res.data]);
     } catch (err) {
       setError(err.response?.data?.error || "Échec de la récupération des produits.");
@@ -94,7 +94,7 @@ const FactureAchatComponent = () => {
 
   const fetchFournisseurs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/fournisseurs");
+      const res = await axios.get("https://bskbackend-1.onrender.com/api/fournisseurs");
       setFournisseurs(Array.isArray(res.data) ? res.data : [res.data]);
     } catch (err) {
       setError(err.response?.data?.error || "Échec de la récupération des fournisseurs.");
@@ -112,7 +112,7 @@ const FactureAchatComponent = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5000/api/produits", {
+      const response = await axios.post("https://bskbackend-1.onrender.com/api/produits", {
         ...newProduit,
         prixUnitaireHT: parseFloat(newProduit.prixUnitaireHT),
         tvaApplicable: parseFloat(newProduit.tvaApplicable),
@@ -234,7 +234,9 @@ const FactureAchatComponent = () => {
   const handleEditFacture = async (facture) => {
     setIsEditing(true);
     try {
-      const res = await axios.get(`http://localhost:5000/api/factureAchats/${facture._id}`);
+      const res = await axios.get(
+        `https://bskbackend-1.onrender.com/api/factureAchats/${facture._id}`
+      );
       console.log("Edit facture response:", res.data);
       setCurrentFacture({
         ...res.data,
@@ -269,7 +271,9 @@ const FactureAchatComponent = () => {
 
   const handleViewFacture = async (facture) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/factureAchats/${facture._id}`);
+      const res = await axios.get(
+        `https://bskbackend-1.onrender.com/api/factureAchats/${facture._id}`
+      );
       console.log("View facture response:", res.data);
       setCurrentFacture({
         ...res.data,
@@ -304,7 +308,7 @@ const FactureAchatComponent = () => {
   const handleDeleteFacture = async (id) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer cette facture d'achat ?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/factureAchats/${id}`);
+        await axios.delete(`https://bskbackend-1.onrender.com/api/factureAchats/${id}`);
         setFactures((prev) => prev.filter((facture) => facture._id !== id));
       } catch (err) {
         setError(err.response?.data?.error || "Échec de la suppression de la facture d'achat.");
@@ -347,13 +351,16 @@ const FactureAchatComponent = () => {
     try {
       let response;
       if (isEditing) {
-        response = await axios.put(`http://localhost:5000/api/factureAchats/${_id}`, payload);
+        response = await axios.put(
+          `https://bskbackend-1.onrender.com/api/factureAchats/${_id}`,
+          payload
+        );
       } else {
-        response = await axios.post("http://localhost:5000/api/factureAchats", payload);
+        response = await axios.post("https://bskbackend-1.onrender.com/api/factureAchats", payload);
       }
       console.log("Create/Update response:", response.data);
       const populatedFacture = await axios.get(
-        `http://localhost:5000/api/factureAchats/${response.data._id}`
+        `https://bskbackend-1.onrender.com/api/factureAchats/${response.data._id}`
       );
       console.log("Populated facture:", populatedFacture.data);
       generatePDF(populatedFacture.data);

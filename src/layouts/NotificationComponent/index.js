@@ -68,7 +68,7 @@ const NotificationComponent = () => {
   const fetchProduits = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5000/api/produits`);
+      const res = await axios.get(`https://bskbackend-1.onrender.com/api/produits`);
       const data = Array.isArray(res.data) ? res.data : [res.data];
       // Filter products where stockActuel <= stockMinimal
       const lowStockProducts = data.filter(
@@ -84,7 +84,7 @@ const NotificationComponent = () => {
 
   const fetchFournisseurs = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/fournisseurs`);
+      const res = await axios.get(`https://bskbackend-1.onrender.com/api/fournisseurs`);
       setFournisseurs(Array.isArray(res.data) ? res.data : [res.data]);
     } catch (err) {
       setError(err.response?.data?.error || "Échec de la récupération des fournisseurs.");
@@ -93,7 +93,7 @@ const NotificationComponent = () => {
 
   const handleView = async (produit) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/produits/${produit._id}`);
+      const res = await axios.get(`https://bskbackend-1.onrender.com/api/produits/${produit._id}`);
       setCurrentProduit({
         ...res.data,
         recherche: res.data.recherche?.join(", ") || "",
