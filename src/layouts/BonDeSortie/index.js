@@ -60,7 +60,7 @@ const BonDeSortieComponent = () => {
   const fetchBonsDeSortie = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://bskbackend-1.onrender.com/api/bons-de-sortie");
+      const res = await axios.get("https://bskbackend.onrender.com/api/bons-de-sortie");
       const data = Array.isArray(res.data) ? res.data : [res.data];
       setBonsDeSortie(data);
     } catch (err) {
@@ -72,7 +72,7 @@ const BonDeSortieComponent = () => {
 
   const fetchFactures = async () => {
     try {
-      const res = await axios.get("https://bskbackend-1.onrender.com/api/factures");
+      const res = await axios.get("https://bskbackend.onrender.com/api/factures");
       setFactures(Array.isArray(res.data) ? res.data : [res.data]);
     } catch (err) {
       setError(err.response?.data?.error || "Échec de la récupération des factures.");
@@ -81,7 +81,7 @@ const BonDeSortieComponent = () => {
 
   const fetchClients = async () => {
     try {
-      const res = await axios.get("https://bskbackend-1.onrender.com/api/clients");
+      const res = await axios.get("https://bskbackend.onrender.com/api/clients");
       setClients(Array.isArray(res.data) ? res.data : [res.data]);
     } catch (err) {
       setError(err.response?.data?.error || "Échec de la récupération des clients.");
@@ -154,9 +154,7 @@ const BonDeSortieComponent = () => {
   const handleEditBon = async (bon) => {
     setIsEditing(true);
     try {
-      const res = await axios.get(
-        `https://bskbackend-1.onrender.com/api/bons-de-sortie/${bon._id}`
-      );
+      const res = await axios.get(`https://bskbackend.onrender.com/api/bons-de-sortie/${bon._id}`);
       console.log("Edit bon response:", res.data);
       setCurrentBon({
         ...res.data,
@@ -183,9 +181,7 @@ const BonDeSortieComponent = () => {
 
   const handleViewBon = async (bon) => {
     try {
-      const res = await axios.get(
-        `https://bskbackend-1.onrender.com/api/bons-de-sortie/${bon._id}`
-      );
+      const res = await axios.get(`https://bskbackend.onrender.com/api/bons-de-sortie/${bon._id}`);
       console.log("View bon response:", res.data);
       setCurrentBon({
         ...res.data,
@@ -212,7 +208,7 @@ const BonDeSortieComponent = () => {
   const handleDeleteBon = async (id) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer ce bon de sortie ?")) {
       try {
-        await axios.delete(`https://bskbackend-1.onrender.com/api/bons-de-sortie/${id}`);
+        await axios.delete(`https://bskbackend.onrender.com/api/bons-de-sortie/${id}`);
         setBonsDeSortie((prev) => prev.filter((bon) => bon._id !== id));
       } catch (err) {
         setError(err.response?.data?.error || "Échec de la suppression du bon de sortie.");
@@ -253,18 +249,15 @@ const BonDeSortieComponent = () => {
       let response;
       if (isEditing) {
         response = await axios.put(
-          `https://bskbackend-1.onrender.com/api/bons-de-sortie/${_id}`,
+          `https://bskbackend.onrender.com/api/bons-de-sortie/${_id}`,
           payload
         );
       } else {
-        response = await axios.post(
-          "https://bskbackend-1.onrender.com/api/bons-de-sortie",
-          payload
-        );
+        response = await axios.post("https://bskbackend.onrender.com/api/bons-de-sortie", payload);
       }
       console.log("Create/Update response:", response.data);
       const populatedBon = await axios.get(
-        `https://bskbackend-1.onrender.com/api/bons-de-sortie/${response.data._id}`
+        `https://bskbackend.onrender.com/api/bons-de-sortie/${response.data._id}`
       );
       console.log("Populated bon:", populatedBon.data);
       generatePDF(populatedBon.data);

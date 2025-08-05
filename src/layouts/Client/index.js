@@ -71,7 +71,7 @@ const ClientComponent = () => {
   const fetchClients = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://bskbackend-1.onrender.com/api/clients");
+      const res = await axios.get("https://bskbackend.onrender.com/api/clients");
       const data = Array.isArray(res.data) ? res.data : [res.data];
       setClients(data);
     } catch (err) {
@@ -122,7 +122,7 @@ const ClientComponent = () => {
 
   const handleView = async (client) => {
     try {
-      const res = await axios.get(`https://bskbackend-1.onrender.com/api/clients/${client._id}`);
+      const res = await axios.get(`https://bskbackend.onrender.com/api/clients/${client._id}`);
       setCurrentClient({
         ...res.data,
         recherche: res.data.recherche?.join(", ") || "",
@@ -140,7 +140,7 @@ const ClientComponent = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer ce client ?")) {
       try {
-        await axios.delete(`https://bskbackend-1.onrender.com/api/clients/${id}`);
+        await axios.delete(`https://bskbackend.onrender.com/api/clients/${id}`);
         setClients((prev) => prev.filter((client) => client._id !== id));
       } catch (err) {
         setError(err.response?.data?.error || "Échec de la suppression du client.");
@@ -181,9 +181,9 @@ const ClientComponent = () => {
     try {
       let response;
       if (isEditing) {
-        response = await axios.put(`https://bskbackend-1.onrender.com/api/clients/${_id}`, payload);
+        response = await axios.put(`https://bskbackend.onrender.com/api/clients/${_id}`, payload);
       } else {
-        response = await axios.post("https://bskbackend-1.onrender.com/api/clients", payload);
+        response = await axios.post("https://bskbackend.onrender.com/api/clients", payload);
         setClients((prev) => [...prev, response.data]);
       }
       fetchClients();

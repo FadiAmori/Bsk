@@ -73,7 +73,7 @@ const FournisseurComponent = () => {
   const fetchFournisseurs = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://bskbackend-1.onrender.com/api/fournisseurs");
+      const res = await axios.get("https://bskbackend.onrender.com/api/fournisseurs");
       const data = Array.isArray(res.data) ? res.data : [res.data];
       setFournisseurs(data);
     } catch (err) {
@@ -127,7 +127,7 @@ const FournisseurComponent = () => {
   const handleView = async (fournisseur) => {
     try {
       const res = await axios.get(
-        `https://bskbackend-1.onrender.com/api/fournisseurs/${fournisseur._id}`
+        `https://bskbackend.onrender.com/api/fournisseurs/${fournisseur._id}`
       );
       setCurrentFournisseur({
         ...res.data,
@@ -146,7 +146,7 @@ const FournisseurComponent = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer ce fournisseur ?")) {
       try {
-        await axios.delete(`https://bskbackend-1.onrender.com/api/fournisseurs/${id}`);
+        await axios.delete(`https://bskbackend.onrender.com/api/fournisseurs/${id}`);
         setFournisseurs((prev) => prev.filter((fournisseur) => fournisseur._id !== id));
       } catch (err) {
         setError(err.response?.data?.error || "Échec de la suppression du fournisseur.");
@@ -187,11 +187,11 @@ const FournisseurComponent = () => {
       let response;
       if (isEditing) {
         response = await axios.put(
-          `https://bskbackend-1.onrender.com/api/fournisseurs/${_id}`,
+          `https://bskbackend.onrender.com/api/fournisseurs/${_id}`,
           payload
         );
       } else {
-        response = await axios.post("https://bskbackend-1.onrender.com/api/fournisseurs", payload);
+        response = await axios.post("https://bskbackend.onrender.com/api/fournisseurs", payload);
       }
       fetchFournisseurs();
       setShowModal(false);

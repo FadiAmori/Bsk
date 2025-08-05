@@ -74,7 +74,7 @@ const FactureComponent = () => {
   const fetchFactures = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://bskbackend-1.onrender.com/api/factures");
+      const res = await axios.get("https://bskbackend.onrender.com/api/factures");
       const data = Array.isArray(res.data) ? res.data : [res.data];
       setFactures(data);
     } catch (err) {
@@ -86,7 +86,7 @@ const FactureComponent = () => {
 
   const fetchProduits = async () => {
     try {
-      const res = await axios.get("https://bskbackend-1.onrender.com/api/produits");
+      const res = await axios.get("https://bskbackend.onrender.com/api/produits");
       setProduits(Array.isArray(res.data) ? res.data : [res.data]);
     } catch (err) {
       setError(err.response?.data?.error || "Échec de la récupération des produits.");
@@ -95,7 +95,7 @@ const FactureComponent = () => {
 
   const fetchClients = async () => {
     try {
-      const res = await axios.get("https://bskbackend-1.onrender.com/api/clients");
+      const res = await axios.get("https://bskbackend.onrender.com/api/clients");
       setClients(Array.isArray(res.data) ? res.data : [res.data]);
     } catch (err) {
       setError(err.response?.data?.error || "Échec de la récupération des clients.");
@@ -113,7 +113,7 @@ const FactureComponent = () => {
       return;
     }
     try {
-      const response = await axios.post("https://bskbackend-1.onrender.com/api/produits", {
+      const response = await axios.post("https://bskbackend.onrender.com/api/produits", {
         ...newProduit,
         prixUnitaireHT: parseFloat(newProduit.prixUnitaireHT),
         tvaApplicable: parseFloat(newProduit.tvaApplicable),
@@ -260,7 +260,7 @@ const FactureComponent = () => {
   const handleEditFacture = async (facture) => {
     setIsEditing(true);
     try {
-      const res = await axios.get(`https://bskbackend-1.onrender.com/api/factures/${facture._id}`);
+      const res = await axios.get(`https://bskbackend.onrender.com/api/factures/${facture._id}`);
       setCurrentFacture({
         ...res.data,
         dateFacturation: res.data.dateFacturation
@@ -295,7 +295,7 @@ const FactureComponent = () => {
 
   const handleViewFacture = async (facture) => {
     try {
-      const res = await axios.get(`https://bskbackend-1.onrender.com/api/factures/${facture._id}`);
+      const res = await axios.get(`https://bskbackend.onrender.com/api/factures/${facture._id}`);
       setCurrentFacture({
         ...res.data,
         dateFacturation: res.data.dateFacturation
@@ -330,7 +330,7 @@ const FactureComponent = () => {
   const handleDeleteFacture = async (id) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer cette facture ?")) {
       try {
-        await axios.delete(`https://bskbackend-1.onrender.com/api/factures/${id}`);
+        await axios.delete(`https://bskbackend.onrender.com/api/factures/${id}`);
         setFactures((prev) => prev.filter((facture) => facture._id !== id));
       } catch (err) {
         setError(err.response?.data?.error || "Échec de la suppression de la facture.");
@@ -372,15 +372,12 @@ const FactureComponent = () => {
     try {
       let response;
       if (isEditing) {
-        response = await axios.put(
-          `https://bskbackend-1.onrender.com/api/factures/${_id}`,
-          payload
-        );
+        response = await axios.put(`https://bskbackend.onrender.com/api/factures/${_id}`, payload);
       } else {
-        response = await axios.post("https://bskbackend-1.onrender.com/api/factures", payload);
+        response = await axios.post("https://bskbackend.onrender.com/api/factures", payload);
       }
       const populatedFacture = await axios.get(
-        `https://bskbackend-1.onrender.com/api/factures/${response.data._id}`
+        `https://bskbackend.onrender.com/api/factures/${response.data._id}`
       );
       generatePDF(populatedFacture.data);
       fetchFactures();

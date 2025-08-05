@@ -55,13 +55,13 @@ function Dashboard() {
           facturesAchatRes,
           resumesRes,
         ] = await Promise.all([
-          axios.get("https://bskbackend-1.onrender.com/api/clients"),
-          axios.get("https://bskbackend-1.onrender.com/api/fournisseurs"),
-          axios.get("https://bskbackend-1.onrender.com/api/produits"),
-          axios.get("https://bskbackend-1.onrender.com/api/factures"),
-          axios.get("https://bskbackend-1.onrender.com/api/factureAchats"),
-          axios.get("https://bskbackend-1.onrender.com/api/resumes-comptables"),
-          axios.post("https://bskbackend-1.onrender.com/api/resumes-comptables"), // Generate résumés
+          axios.get("https://bskbackend.onrender.com/api/clients"),
+          axios.get("https://bskbackend.onrender.com/api/fournisseurs"),
+          axios.get("https://bskbackend.onrender.com/api/produits"),
+          axios.get("https://bskbackend.onrender.com/api/factures"),
+          axios.get("https://bskbackend.onrender.com/api/factureAchats"),
+          axios.get("https://bskbackend.onrender.com/api/resumes-comptables"),
+          axios.post("https://bskbackend.onrender.com/api/resumes-comptables"), // Generate résumés
         ]);
         setClients(Array.isArray(clientsRes.data) ? clientsRes.data : [clientsRes.data]);
         setFournisseurs(
@@ -118,7 +118,7 @@ function Dashboard() {
         setError("Frais généraux doit être un nombre positif.");
         return;
       }
-      await axios.put(`https://bskbackend-1.onrender.com/api/resumes-comptables/${id}`, {
+      await axios.put(`https://bskbackend.onrender.com/api/resumes-comptables/${id}`, {
         fraisGeneraux,
       });
       setResumesComptables((prev) =>
